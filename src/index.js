@@ -3,8 +3,8 @@ var React = require('react')
 var ReactDOM = require('react-dom')
 
 // Sample data
-var movieData = require('../movie-data.json') // 12 movies
-var lotsMoreMovies = require('../lots-more-movies.json') // lots more
+var movieData = require('./movie-data.json') // 12 movies
+var lotsMoreMovies = require('./lots-more-movies.json') // lots more
 
 // Components
 var Header = require('./components/Header')
