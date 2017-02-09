@@ -4,10 +4,8 @@ var Movie = require('./Movie')
 var MovieList = React.createClass({
   renderMovie: function(movie) {
     return (
-      <Movie poster={movie.poster}
-             title={movie.title}
-             genre={movie.genre}
-             runtime={movie.runtime} />
+      <Movie key={movie.id}
+             movie={movie} />
     )
   },
   render: function() {
