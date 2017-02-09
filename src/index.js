@@ -10,6 +10,7 @@ var lotsMoreMovies = require('./lots-more-movies.json') // lots more
 var Header = require('./components/Header')
 var Movie = require('./components/Movie')
 var MovieList = require('./components/MovieList')
+var SortBar = require('./components/SortBar')
 
 var App = React.createClass({
   loadMoreMoviesClicked: function() {
@@ -32,15 +33,7 @@ var App = React.createClass({
           </div>
           <Header name={this.props.name} />
         </div>
-        <div className="sort row">
-          <div className="col-sm-12">
-            <ul className="nav nav-pills">
-              <li className="active"><a href="#">Latest Releases</a></li>
-              <li><a href="#">A-Z</a></li>
-              <li className="nav-text pull-right">{this.state.movies.length} movies</li>
-            </ul>
-          </div>
-        </div>
+        <SortBar movieCount={this.state.movies.length} />
         <div className="main row">
           <MovieList movies={this.state.movies} />
           <div className="details col-sm-4">
