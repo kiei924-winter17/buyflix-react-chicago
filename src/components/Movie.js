@@ -5,7 +5,7 @@ var Movie = React.createClass({
     return (
       <div className="col-sm-2">
         <div className="thumbnail">
-          <img className="img-responsive" role="presentation" src={this.props.movie.poster} />
+          <img onClick={this.props.movieClicked} className="img-responsive" role="presentation" src={this.props.movie.poster} />
           <div className="caption">
             <h3>{this.props.movie.title}</h3>
             <p>{this.props.movie.genre}</p>

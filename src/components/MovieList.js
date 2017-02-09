@@ -5,7 +5,8 @@ var MovieList = React.createClass({
   renderMovie: function(movie) {
     return (
       <Movie key={movie.id}
-             movie={movie} />
+             movie={movie}
+             movieClicked={this.props.movieClicked} />
     )
   },
   render: function() {
