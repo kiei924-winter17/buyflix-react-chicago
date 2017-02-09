@@ -12,6 +12,9 @@ var Movie = require('./components/Movie')
 var MovieList = require('./components/MovieList')
 
 var App = React.createClass({
+  loadMoreMoviesClicked: function() {
+    window.alert("Yay, you clicked a button!")
+  },
   getInitialState: function() {
     return {
       movies: movieData
@@ -38,7 +41,7 @@ var App = React.createClass({
         <div className="main row">
           <MovieList movies={this.state.movies} />
           <div className="details col-sm-4">
-            <h3><a href="#" className="btn btn-success">Load More Movies!</a></h3>
+            <h3><a href="#" onClick={this.loadMoreMoviesClicked} className="btn btn-success">Load More Movies!</a></h3>
             <div className="row">
               <div className="col-sm-6">
                 <img className="poster img-responsive" role="presentation" src="http://ia.media-imdb.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg" />
