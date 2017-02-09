@@ -36,7 +36,7 @@ var App = React.createClass({
           </div>
         </div>
         <div className="main row">
-          <MovieList />
+          <MovieList movies={this.state.movies} />
           <div className="details col-sm-4">
             <div className="row">
               <div className="col-sm-6">
