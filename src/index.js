@@ -37,7 +37,7 @@ var App = React.createClass({
             <ul className="nav nav-pills">
               <li className="active"><a href="#">Latest Releases</a></li>
               <li><a href="#">A-Z</a></li>
-              <li className="nav-text pull-right">8 movies</li>
+              <li className="nav-text pull-right">{this.state.movies.length} movies</li>
             </ul>
           </div>
         </div>
