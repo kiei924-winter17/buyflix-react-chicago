@@ -14,7 +14,9 @@ var SortBar = require('./components/SortBar')
 
 var App = React.createClass({
   movieClicked: function(movie) {
-    window.alert("You clicked " + movie.title)
+    this.setState({
+      currentMovie: movie
+    })
   },
   loadMoreMoviesClicked: function() {
     var allTheMovies = movieData.concat(lotsMoreMovies)
