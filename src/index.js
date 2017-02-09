@@ -21,7 +21,8 @@ var App = React.createClass({
   },
   getInitialState: function() {
     return {
-      movies: movieData
+      movies: movieData,
+      currentMovie: movieData[0]
     }
   },
   render: function() {
@@ -40,22 +41,22 @@ var App = React.createClass({
             <h3><a href="#" onClick={this.loadMoreMoviesClicked} className="btn btn-success">Load More Movies!</a></h3>
             <div className="row">
               <div className="col-sm-6">
-                <img className="poster img-responsive" role="presentation" src="http://ia.media-imdb.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg" />
+                <img className="poster img-responsive" role="presentation" src={this.state.currentMovie.poster} />
               </div>
               <div className="col-sm-6">
-                <h3>Star Wars: The Force Awakens</h3>
-                <p className="rating">PG-13</p>
-                <p><strong>Genre:</strong> Action, Adventure, Fantasy</p>
-                <p><strong>Runtime:</strong> 135 mins</p>
-                <p><strong>Released:</strong> 12/18/15</p>
+                <h3>{this.state.currentMovie.title}</h3>
+                <p className="rating">{this.state.currentMovie.rating}</p>
+                <p><strong>Genre:</strong> {this.state.currentMovie.genre}</p>
+                <p><strong>Runtime:</strong> {this.state.currentMovie.runtime}</p>
+                <p><strong>Released:</strong> {this.state.currentMovie.released}</p>
               </div>
             </div>
             <div className="row">
               <div className="col-sm-12">
                 <h4>Summary</h4>
-                <p>Three decades after the defeat of the Galactic Empire, a new threat arises. The First Order attempts to rule the galaxy and only a ragtag group of heroes can stop them, along with the help of the Resistance.</p>
+                <p>{this.state.currentMovie.plot}</p>
                 <h4>Cast</h4>
-                <p>Harrison Ford, Mark Hamill, Carrie Fisher, Adam Driver</p>
+                <p>{this.state.currentMovie.cast}</p>
               </div>
             </div>
           </div>
