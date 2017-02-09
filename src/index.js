@@ -13,7 +13,10 @@ var MovieList = require('./components/MovieList')
 
 var App = React.createClass({
   loadMoreMoviesClicked: function() {
-    window.alert("Yay, you clicked a button!")
+    var allTheMovies = movieData.concat(lotsMoreMovies)
+    this.setState({
+      movies: allTheMovies
+    })
   },
   getInitialState: function() {
     return {
