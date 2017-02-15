@@ -3,14 +3,22 @@ var React = require('react')
 var ReactDOM = require('react-dom')
 
 // Sample data
-var movieData = require('./movie-data.json') // 12 movies
-var lotsMoreMovies = require('./lots-more-movies.json') // lots more
+var movieData = require('./data/movie-data.json') // 12 movies
+var lotsMoreMovies = require('./data/lots-more-movies.json') // lots more
 
 // Components
 var Header = require('./components/Header')
-var Movie = require('./components/Movie')
 var MovieList = require('./components/MovieList')
 var SortBar = require('./components/SortBar')
+var MovieDetails = require('./components/MovieDetails')
+
+// Firebase
+var Rebase = require('re-base')
+var base = Rebase.createClass({
+  apiKey: "AIzaSyD3SEaqljU1DdT72tf7nEsKEWAHcgHa7Rs",
+  authDomain: "buyflix-d7037.firebaseapp.com",
+  databaseURL: "https://buyflix-d7037.firebaseio.com/",
+});
 
 var App = React.createClass({
   movieClicked: function(movie) {
@@ -18,57 +26,69 @@ var App = React.createClass({
       currentMovie: movie
     })
   },
-  loadMoreMoviesClicked: function() {
+  movieWatched: function(movie) {
+    var existingMovies = this.state.movies
+    var moviesWithWatchedMovieRemoved = existingMovies.filter(function(existingMovie) {
+      return existingMovie.id !== movie.id
+    })
+    this.setState({
+      movies: moviesWithWatchedMovieRemoved,
+      currentMovie: null
+    })
+  },
+  resetMovieListClicked: function() {
     var allTheMovies = movieData.concat(lotsMoreMovies)
     this.setState({
       movies: allTheMovies
     })
   },
+  authChanged: function(user) {
+    if (user) {
+      console.log(user)
+    } else {
+      console.log("Logged out") }
+  },
+  loginComplete: function(error, response) {
+    if (error) {
+      console.log("Login failed")
+    } else {
+      console.log("Login succeeded")
+    }
+  },
+  login: function() {
+    base.authWithOAuthPopup('google', this.loginComplete)
+  },
+  logout: function() {
+    base.unauth()
+  },
   getInitialState: function() {
     return {
-      movies: movieData,
-      currentMovie: movieData[0]
+      movies: movieData.concat(lotsMoreMovies),
+      currentMovie: null,
+      currentUser: null
     }
+  },
+  componentDidMount: function() {
+    // base.syncState('/movies', { context: this, state: 'movies', asArray: true })
+    // base.onAuth(this.authChanged)
   },
   render: function() {
     return (
       <div>
-        <div className="header row">
-          <div className="col-sm-9">
-            <h1>Buyflix</h1>
-          </div>
-          <Header name={this.props.name} />
-        </div>
+        <Header currentUser={this.state.currentUser} 
+                login={this.login} 
+                logout={this.logout} />
         <SortBar movieCount={this.state.movies.length} />
         <div className="main row">
-          <MovieList movieClicked={this.movieClicked} movies={this.state.movies} />
-          <div className="details col-sm-4">
-            <h3><a href="#" onClick={this.loadMoreMoviesClicked} className="btn btn-success">Load More Movies!</a></h3>
-            <div className="row">
-              <div className="col-sm-6">
-                <img className="poster img-responsive" role="presentation" src={this.state.currentMovie.poster} />
-              </div>
-              <div className="col-sm-6">
-                <h3>{this.state.currentMovie.title}</h3>
-                <p className="rating">{this.state.currentMovie.rating}</p>
-                <p><strong>Genre:</strong> {this.state.currentMovie.genre}</p>
-                <p><strong>Runtime:</strong> {this.state.currentMovie.runtime}</p>
-                <p><strong>Released:</strong> {this.state.currentMovie.released}</p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <h4>Summary</h4>
-                <p>{this.state.currentMovie.plot}</p>
-                <h4>Cast</h4>
-                <p>{this.state.currentMovie.cast}</p>
-              </div>
-            </div>
-          </div>
+          <MovieList movieClicked={this.movieClicked}
+                     movies={this.state.movies} />
+          <MovieDetails movieWatched={this.movieWatched}
+                        resetMovieListClicked={this.resetMovieListClicked}
+                        movie={this.state.currentMovie} />
         </div>
       </div>
     )
   }
 })
 
-ReactDOM.render(<App name="Jeff" />, document.getElementById("app"))
+ReactDOM.render(<App />, document.getElementById("app"))

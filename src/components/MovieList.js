@@ -4,9 +4,9 @@ var Movie = require('./Movie')
 var MovieList = React.createClass({
   renderMovie: function(movie) {
     return (
-      <Movie key={movie.id}
-             movie={movie}
-             movieClicked={this.props.movieClicked} />
+      <Movie movieClicked={this.props.movieClicked}
+             key={movie.id}
+             movie={movie} />
     )
   },
   render: function() {
