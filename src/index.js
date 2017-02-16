@@ -44,15 +44,15 @@ var App = React.createClass({
   },
   authChanged: function(user) {
     if (user) {
-      console.log(user)
       this.setState({
         currentUser: user
       })
+      console.log(user)
     } else {
-      console.log("Logged out") }
       this.setState({
         currentUser: null
       })
+      console.log("Logged out") }
   },
   loginComplete: function(error, response) {
     if (error) {
